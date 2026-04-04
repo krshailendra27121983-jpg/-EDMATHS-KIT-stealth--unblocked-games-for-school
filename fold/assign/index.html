@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>assgin/id=1321</title>
+    <style>
+        
+        body, html { 
+            margin: 0; 
+            padding: 0; 
+            width: 100%; 
+            height: 100%; 
+            overflow: hidden; 
+            background-color: #000; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        
+        #ruffle { 
+            width: 100vw; 
+            height: 100vh; 
+        }
+
+        
+        ruffle-player {
+            width: 100% !important;
+            height: 100% !important;
+        }
+    </style>
+</head>
+<body>
+    <div id="ruffle"></div>
+
+   
+    <script src="ruffle/ruffle.js"></script>
+
+    <script>
+        window.RufflePlayer = window.RufflePlayer || {};
+        window.addEventListener("DOMContentLoaded", () => {
+            const ruffle = window.RufflePlayer.newest();
+            const player = ruffle.createPlayer();
+            const container = document.getElementById("ruffle");
+            
+            container.appendChild(player);
+
+            player.load({
+                url: "isaac.swf", 
+                autoplay: "on",
+                unmuteOverlay: "hidden",
+                letterbox: "on" 
+            });
+
+            
+            player.style.width = "100%";
+            player.style.height = "100%";
+        });
+    </script>
+</body>
+</html>

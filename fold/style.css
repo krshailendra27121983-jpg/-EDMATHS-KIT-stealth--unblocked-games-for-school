@@ -1,0 +1,113 @@
+
+body { 
+    margin: 0; padding: 0; background-color: black; 
+    scroll-behavior: smooth; overflow-x: hidden; 
+}
+
+
+.glass-box-section { 
+    height: 100vh; width: 100%; display: grid; 
+    place-items: center; background-color: black; 
+}
+
+h1 { 
+    font-family: 'Doto', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande'; 
+    color: #00ff00; 
+    font-size: clamp(2.5rem, 8vw, 7rem); 
+    text-transform: uppercase; 
+    border-right: 0.05em solid #00ff00; 
+    padding-right: 5px; 
+    white-space: nowrap; 
+    animation: blink 0.7s step-end infinite; 
+}
+
+
+.image-section { 
+    min-height: 100vh; width: 100%; 
+    display: flex; flex-direction: column; align-items: center; 
+    position: relative; padding: 80px 20px; box-sizing: border-box;
+}
+
+.bg-image { 
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+    object-fit: cover; z-index: -1; opacity: 0.3; 
+}
+
+.planet-text { 
+    font-family: 'Doto', sans-serif; color: white; 
+    font-size: clamp(2rem, 6vw, 5rem); text-transform: uppercase; 
+    text-shadow: 0 0 25px rgba(0, 255, 0, 0.4); margin-bottom: 60px;
+    z-index: 5;
+}
+
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 30px;
+    width: 100%;
+    max-width: 1200px;
+    z-index: 10;
+}
+
+
+.overlay-box { 
+    background: rgba(0, 50, 0, 0.2); 
+    border: 2px solid rgba(0, 255, 0, 0.4); 
+    backdrop-filter: blur(15px); border-radius: 20px; 
+    display: flex; flex-direction: column; align-items: center; 
+    padding: 15px; transition: 0.3s ease;
+}
+
+.overlay-box:hover { 
+    transform: scale(1.05); 
+    border-color: #00ff00;
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
+}
+
+.overlay-box img { 
+    width: 100%; height: 160px; object-fit: cover; 
+    border-radius: 12px; margin-bottom: 15px; 
+}
+
+
+.box-btn { 
+    width: 100%; 
+    text-decoration: none; 
+    color: black; 
+    background: #008000; 
+    padding: 14px 0; 
+    text-align: center; 
+    border-radius: 8px; 
+
+    font-family: 'Doto', sans-serif; 
+    font-weight: 900; 
+    font-variation-settings: "ROND" 0; 
+    font-size: 1.1rem;
+    letter-spacing: 0.12em; 
+    text-transform: uppercase;
+    
+    
+    -webkit-font-smoothing: none; 
+    image-rendering: pixelated;
+    
+    transition: 0.3s; 
+}
+
+.box-btn:hover { 
+    background: #00ff00; 
+    box-shadow: 0 0 25px rgba(0, 255, 0, 0.8);
+    transform: translateY(-2px);
+}
+
+
+@keyframes blink { 
+    from, to { border-color: transparent } 
+    50% { border-color: #00ff00 } 
+}
+
+
+@media (max-width: 768px) {
+    .grid-container { gap: 15px; }
+    .overlay-box { padding: 10px; }
+}

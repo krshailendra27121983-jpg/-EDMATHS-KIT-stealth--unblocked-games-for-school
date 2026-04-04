@@ -1,0 +1,386 @@
+
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagnostic Test v2.4</title>
+    
+    <meta name="description" content="EdMaths is a specialized platform for developing cognitive logic and spatial awareness through interactive mathematical challenges.">
+<meta name="keywords" content="EdMaths, Mathematics, Logic, Spatial Awareness, STEM Education, Interactive Learning">
+<meta name="author" content="EdMaths Team">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+
+   
+
+    
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Major+Mono+Display&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #050505;
+            --card-bg: rgba(13, 13, 13, 0.9);
+            --accent: #ffffff;
+            --text-main: #ffffff;
+            --text-dim: #777777;
+            --border: #222222;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            font-family: 'JetBrains Mono', monospace;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            overflow-x: hidden; 
+        }
+
+        .ambient-glow {
+            position: fixed; display: inline-block;
+            width: 6px;
+            height: 6px;
+            background: #ffffff;
+            border-radius: 50%;
+            margin-right: 6px;
+            box-shadow: 0 0 5px #fff;
+            top: -110%;
+            right: -750px; 
+            width: 1500px;
+            height: 1500px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 1) 3%, rgba(255, 255, 255, 1) 4%, rgba(255, 255, 255, 0.1) 5%, rgba(255, 255, 255, 0) 100%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1000px;
+            padding: 80px 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 24px;
+            margin-bottom: 50px;
+        }
+
+        h1 {
+            font-family: 'Major Mono Display', monospace;
+            font-size: 1.5rem;
+            margin: 0;
+            letter-spacing: -1px;
+            text-transform: lowercase;
+        }
+
+        .stealth-btn {
+            background: none;
+            border: 1px solid #222;
+            background-color: #333;
+            padding: 8px 12px;
+            cursor: pointer;
+            font-size: 10px;
+            font-family: 'JetBrains Mono', monospace;
+            margin-left: auto;
+            margin-right: 20px;
+            transition: all 0.3s;
+            color: white; 
+            
+        }
+
+        .stealth-btn:hover { color: #fff; border-color: #555; }
+
+        .system-status {
+            font-size: 10px;
+            color: var(--text-dim);
+            text-align: right;
+            line-height: 1.5;
+
+        }
+
+        .status-dot {
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background: #ffffff;
+            border-radius: 50%;
+            margin-right: 6px;
+            box-shadow: 0 0 5px #fff;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .module-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(10px);
+            margin-bottom: 20px; 
+        }
+
+        .module-card:hover { transform: translateY(-5px); border-color: #ffffff; }
+
+        .module-id { font-size: 10px; color: var(--text-dim); font-weight: 700; margin-bottom: 15px; letter-spacing: 1px; }
+
+        h3 { font-family: 'Major Mono Display', monospace; margin: 0 0 15px 0; font-size: 18px; color: #fff; text-transform: lowercase; }
+
+        .description { font-size: 11px; color: var(--text-dim); margin-bottom: 30px; line-height: 1.6; }
+
+        .launch-btn {
+            text-decoration: none;
+            color: #000;
+            background-color: #fff;
+            font-weight: 700;
+            padding: 14px;
+            border-radius: 2px;
+            text-align: center;
+            font-size: 11px;
+            margin-top: auto;
+            letter-spacing: 1px;
+        }
+         .name-gama{ font-size:3em  }
+        .console-container { margin-top: 60px; background: rgba(0,0,0,0.8); border: 1px solid var(--border); padding: 20px; }
+
+        #log-stream { font-size: 11px; color: #fff; opacity: 0.4; height: 60px; overflow: hidden; line-height: 1.8; }
+
+        .footer-jargon { margin-top: 80px; font-size: 10px; color: #333; text-align: left; line-height: 1.6; border-top: 1px solid #111; padding-top: 20px; }
+    </style>
+</head>
+<body>
+
+    <div class="ambient-glow"></div>
+
+    <div class="container">
+        <nav class="top-nav">
+            <h1>hypeRion-coglab.oRg</h1>
+            
+            <button id="gamify-btn" class="stealth-btn"><p class="name-gama">DEVMODE</p></button>
+            <div class="system-status">
+                <span class="status-dot"></span> [ SYSTEM_READY ]<br>
+                [ NODE: API-V1 ] [ DIST: US-E ]
+            </div>
+        </nav>
+
+        <main class="grid">
+        
+            <article class="module-card">
+                <span class="module-id">SYS_ID: VX-882</span>
+                <h3 id="t-882">sPatiAl_aNalYsis_v1</h3>
+                <p class="description">Analysis of 3D spatial awareness and environmental interaction utilizing procedural generation algorithms.</p>
+                <a href="#" id="l-882" class="launch-btn">INITIALIZE MODULE</a>
+            </article>
+
+            <article class="module-card">
+                <span class="module-id">SYS_ID: LD-441</span>
+                <h3 id="t-441">neuRo_tiMing_v2</h3>
+                <p class="description">Monitoring neuromuscular response timing through high-frequency visual stimuli and rhythmic synchronization.</p>
+                <a href="#" id="l-441" class="launch-btn">INITIALIZE MODULE</a>
+            </article>
+
+            <article class="module-card">
+                <span class="module-id">SYS_ID: BN-2048</span>
+                <h3 id="t-2048">biNary_loGic_v3</h3>
+                <p class="description">Evaluation of binary merging logic and predictive planning via iterative integer sorting cycles.</p>
+                <a href="#" id="l-2048" class="launch-btn">INITIALIZE MODULE</a>
+            </article>
+
+            <article class="module-card">
+                <span class="module-id">SYS_ID: SH-772</span>
+                <h3 id="t-772">kiNetic_traJectory_v1</h3>
+                <p class="description">Kinetic trajectory modeling and rapid-response sensory calibration via multi-stage platform navigation cycles.</p>
+                <a href="#" id="l-772" class="launch-btn">INITIALIZE MODULE</a>
+            </article>
+
+            <article class="module-card">
+                <span class="module-id">SYS_ID: VX-V7</span>
+                <h3 id="t-v7">assEssment_v7</h3>
+                <p class="description">High-velocity coordinate tracking and momentum-based obstacle avoidance simulation.</p>
+                <a href="#" id="l-v7" class="launch-btn">INITIALIZE MODULE</a>
+            </article>
+
+            <article class="module-card">
+                <span class="module-id">SYS_ID: DM-001</span>
+                <h3 id="t-asd">vEhicle_dynAmics_v1</h3>
+                <p class="description">Stress-testing environmental physics through iterative vehicular propulsion and balance algorithms.</p>
+                <a href="https://www.desmos.com/scientific" id="l-dm" class="launch-btn">INITIALIZE MODULE</a>
+           
+
+
+        </main>
+
+        <div class="console-container">
+            <div id="log-stream">
+                [LOG_01]: Neural pathway verified...<br>
+                [LOG_02]: System buffer at 100% capacity...<br>
+                [LOG_03]: Synchronizing cognitive load with Hyperion Core...
+            </div>
+        </div>
+
+      
+
+  <div>
+     <footer class="footer-jargon">
+    <p>SEC_01: HTML is the standard markup language for documents designed to be displayed in a web browser. It can be assisted by technologies such as Cascading Style Sheets (CSS) and scripting languages such as JavaScript. Web browsers receive HTML documents from a web server or from local storage and render the documents into multimedia web pages.</p>
+    <p>SEC_02: CASCADING_STYLE_ARCHITECTURE. CSS is a style sheet language used for describing the presentation of a document written in a markup language such as HTML or XML. CSS is a cornerstone technology of the World Wide Web, alongside HTML and JavaScript.</p>
+
+    
+    <p>SEC_03: Document Object Model, Asynchronous JavaScript and XML, ECMAScript 2025 specification, prototypal inheritance, lexical scoping, closure encapsulation, event loop microtask queue, Cross-Origin Resource Sharing, Content Security Policy, Service Worker lifecycle, progressive web app manifest, Tree shaking optimization, Hydration in SSR frameworks, Strict Mode semantics, Hoisting mechanism, Temporal Dead Zone, Immediately Invoked Function Expression.</p>
+    
+    <p>SEC_04: Shadow DOM encapsulation, CSS Specificity calculation, BEM naming convention, Flexbox alignment properties, Grid Template Areas, Media Query breakpoints, localStorage persistence, IndexedDB transactions, WebSocket full-duplex communication, Fetch API request headers, JSON serialization, RESTful API endpoints, GraphQL schema definition, React hooks lifecycle, Virtual DOM reconciliation, Component-based architecture.</p>
+
+    <p>SEC_05: Request Animation Frame, WebAssembly binary format, Canvas API rendering, SVG path manipulation, Mutation Observer, Intersection Observer, Web Cryptography API, Secure Hash Algorithm, Transport Layer Security, User Agent string parsing, Semantic HTML5 tags, Accessibility Tree, WAI-ARIA roles, Keyboard focus management, Z-index stacking context, GPU acceleration, Service Worker caching strategies.</p>
+
+    
+
+    <p>SEC_FINAL: HTTP/3 QUIC protocol, ETag validation, Cache-Control headers, garbage collection heuristics, memory leak mitigation, heap snapshot analysis, stack trace debugging, source map resolution, minification obfuscation, module bundling dependency graph, tree-shaking dead code elimination, hot module replacement, service worker registration, push notification payload, background sync API, persistent storage quota, screen orientation locking, web vibration feedback, battery status monitoring.</p>
+    <p>SEC_06: SYSTEM_HEURISTICS. Edge computing latency, Content Delivery Network propagation, DNS lookup prefetching, Resource Hints (preconnect, preload, prefetch), Cumulative Layout Shift (CLS), First Input Delay (FID), Largest Contentful Paint (LCP), Time to Interactive (TTI), Brotli compression algorithms, Gzip encoding, WebP image formatting, AVIF container optimization, Critical Path Rendering, Render-blocking resources, DOMContentLoaded event timing.</p>
+
+    <p>SEC_07: PROTOCOL_EXCHANGE. WebRTC peer-to-peer handshaking, Signaling server negotiation, ICE candidate gathering, STUN/TURN traversal, HTTP Strict Transport Security (HSTS), Content-Type sniffing prevention, Cross-Site Scripting (XSS) sanitization, Cross-Site Request Forgery (CSRF) tokens, Same-Site cookie attributes, OAuth2.0 authorization flow, JWT (JSON Web Token) stateless authentication, OpenID Connect identity layer.</p>
+
+    <p>SEC_08: ARCHITECTURAL_PATTERNS. Micro-frontend orchestration, Islands architecture, Static Site Generation (SSG), Incremental Static Regeneration (ISR), Client-Side Rendering (CSR) hydration, Flux data flow, Redux state management, Observable streams (RxJS), Reactive programming primitives, Declarative UI patterns, Atomic CSS methodology, Shadow DOM scoping, Custom Elements registry, Template literals interpolation.</p>
+
+    <p>SEC_09: INFRASTRUCTURE_DEPLOYMENT. CI/CD pipeline automation, Containerization (Docker) orchestration, Kubernetes cluster scaling, Serverless function execution, Cold start latency, Lambda edge triggers, Webhook integration, Versioning semantic (SemVer), Git rebase workflows, Headless CMS integration, Jamstack architecture, Environment variable injection, Build-time transpilation (Babel), Polyfill injection strategies.</p>
+        <p>SEC_10: CRYPTOGRAPHIC_PRIMITIVES. Elliptic Curve Digital Signature Algorithm (ECDSA), Zero-Knowledge Proof (ZKP) verification, Homomorphic encryption, Salted password hashing (Argon2), Public Key Infrastructure (PKI), Certificate Authority (CA) revocation, Perfect Forward Secrecy (PFS), End-to-end encryption (E2EE) handshakes.</p>
+
+    <p>SEC_11: DATA_PERSISTENCE_LAYER. NoSQL document store, Relational ACID compliance, Database sharding, Write-ahead logging (WAL), CAP Theorem constraints, Eventual consistency models, Read replicas, Distributed locking, Redis Pub/Sub, Message queue (RabbitMQ/Kafka) throughput, Connection pooling, SQL injection prevention.</p>
+
+    <p>SEC_12: KINETIC_UI_ENGINEERING. Bezier curve easing, Frame rate throttling, Compositor thread offloading, Hardware acceleration triggers, Variable fonts (WOFF2), Parallax offset calculation, Spring physics animation, Lottie JSON playback, Intersection Observer thresholds, Smooth scroll behavior, Reduced motion media queries.</p>
+
+    <p>SEC_13: TELEMETRY_AND_OBSERVABILITY. Real User Monitoring (RUM), Synthetic monitoring, Log aggregation, Distributed tracing, Error boundary catching, Source map remapping, Core Web Vitals profiling, Lighthouse performance scoring, Heap allocation sampling, Call stack profiling, Network waterfall analysis.</p>
+
+    <p>SEC_14: COMPILER_LOGIC. Abstract Syntax Tree (AST) parsing, Lexical analysis, Tokenization, Just-In-Time (JIT) compilation, V8 Hidden Classes, Inline caching, Garbage collection scavenging, WebAssembly Text Format (WAT), Transpilation source-to-source mapping, Dead code elimination.</p>
+        <p>SEC_15: MOBILE_SENSOR_FUSION. Accelerometer data normalization, Gyroscope angular velocity, Magnetometer orientation, Ambient light sensing, Proximity detection, Device Motion API, Geolocation high-accuracy tracking, Haptic feedback patterns, Biometric authentication (WebAuthn/FaceID), Screen Wake Lock API, Web Share Target.</p>
+
+    <p>SEC_16: VULNERABILITY_SURFACE. Server-Side Request Forgery (SSRF), Remote Code Execution (RCE), Directory Traversal, SQL Map injection, Cross-Site Scripting (XSS) reflected vs. stored, Clickjacking protection (X-Frame-Options), Content Sniffing (MIME-type sniffing), Timing attacks, Side-channel leakage, Man-in-the-Middle (MitM) intercept.</p>
+
+    <p>SEC_17: DISTRIBUTED_SYSTEMS. Byzantine Fault Tolerance, Raft consensus algorithm, Paxos protocol, Gossip protocol, Vector clocks, Conflict-free Replicated Data Types (CRDTs), Microservice service mesh (Istio), API Gateway rate limiting, Circuit breaker pattern, Bulkhead isolation, Service discovery registry.</p>
+
+    <p>SEC_18: MULTIMEDIA_PIPELINE. Adaptive Bitrate Streaming (ABR), Dynamic Adaptive Streaming over HTTP (DASH), HLS playlist manifest, WebM container, Ogg Vorbis/Opus codec, Media Source Extensions (MSE), Encrypted Media Extensions (EME), Widevine DRM, Canvas context hardware acceleration, OffscreenCanvas worker thread.</p>
+
+    <p>SEC_19: ADVANCED_STYLING_LOGIC. Container Queries, CSS Nesting (Native), CSS Variables (Runtime modification), HSL/LCH color space, Mix-blend-mode compositing, Backdrop-filter blur, Shape-outside wrapping, Aspect-ratio calculation, Scroll-timeline animation, View-transition API, Pseudo-class functional notation.</p>
+        <p>SEC_20: CLOUD_INFRASTRUCTURE. Multi-tenant isolation, Auto-scaling group elasticity, Elastic Load Balancing (ELB), Virtual Private Cloud (VPC) peering, Subnet masking, NAT Gateway routing, Edge-side Includes (ESI), Serverless cold-start optimization, Function-as-a-Service (FaaS) invocation, Persistent Volume Claims (PVC), Ephemeral storage cycles, Ingress controllers.</p>
+
+    <p>SEC_21: DEPRECATED_LEGACY_SYSTEMS. Quirks Mode compatibility, Adobe Flash Player runtime, Silverlight plugin, ActiveX controls, NPAPI architecture, Frameset nesting, Table-based layouts, Spacer GIF positioning, Marquee scrolling, Blink tag rendering, DHTML behaviors, Internet Explorer Compatibility View, Polyfill bloat, Legacy User-Agent sniffing.</p>
+
+    <p>SEC_22: NEURAL_INTERFACE_HEURISTICS. Web Neural Network API (WebNN), Tensor processing, Client-side inference, Model quantization, Weight pruning, Layer normalization, Generative Adversarial Network (GAN) noise, Transformer architecture, Vector embeddings, Cosine similarity calculation, Sentiment analysis tokenization, Real-time object detection hooks.</p>
+
+    <p>SEC_23: LOW_LEVEL_NETWORKING. TCP Window Scaling, Maximum Transmission Unit (MTU), Round-Trip Time (RTT) variance, Head-of-line blocking (HOL), User Datagram Protocol (UDP) datagrams, Socket.io heartbeats, Server-Sent Events (SSE), Keep-alive persistence, Zero-copy networking, Packet retransmission timeout, Congestion control algorithms (BBR/Cubic).</p>
+
+    <p>SEC_24: RUNTIME_EXECUTION_CONTEXT. Execution stack frames, Variable environment mapping, Lexical environment chain, This-binding resolution, Strict mode restrictions, Tail call optimization (TCO), Async/Await state machines, Generator function yielding, Iterator protocol, Proxy traps, Reflect API meta-programming, TypedArrays (Int32Array/Float64Array).</p>
+       <p>SEC_25: QUANTUM_COMPUTING_ABSTRACTIONS. Quantum bit (qubit) superposition, Entanglement correlation, Quantum interference, Shor’s algorithm factoring, Grover’s search acceleration, Post-quantum cryptography (PQC), Lattice-based encryption, NIST-standardized Kyber/Dilithium, Quantum decoherence mitigation, Cryogenic hardware constraints, Variational Quantum Eigensolver (VQE).</p>
+
+    <p>SEC_26: STANDARDS_AND_GOVERNANCE. W3C Recommendation status, WHATWG Living Standard, IETF RFC (Request for Comments), ISO/IEC compliance, GDPR data portability, CCPA privacy rights, COPPA regulatory constraints, Section 508 accessibility compliance, EN 301 549 standards, Open Source Initiative (OSI) licensing, MIT/Apache/GPL permissiveness.</p>
+
+    <p>SEC_27: SPATIAL_COMPUTING_LOGIC. WebXR Device API, Augmented Reality (AR) hit testing, Virtual Reality (VR) teleportation, Passthrough camera rendering, 6DOF (Six Degrees of Freedom) tracking, Gaze-based interaction, Spatial audio HRTF (Head-Related Transfer Function), Occlusion culling, Point cloud mesh reconstruction, USDZ/glTF 3D model serialization.</p>
+
+    <p>SEC_28: HARDWARE_INTERFACE_LAYER. Web Bluetooth GATT services, WebUSB descriptor negotiation, Web Serial port parity, HID (Human Interface Device) report mapping, Gamepad API axis mapping, Pressure-sensitive stylus input, Thermal throttling events, Power Management API, CPU core affinity, SIMD (Single Instruction Multiple Data) parallelization.</p>
+
+    <p>SEC_29: DISTRIBUTED_LEDGER_HEURISTICS. Smart contract gas optimization, Decentralized Identifier (DID), Verifiable Credentials, IPFS content-addressed storage, Merkle Tree root validation, Blockchain node synchronization, Peer-to-peer (P2P) DHT (Distributed Hash Table), Ethereum Virtual Machine (EVM) bytecode, Cold wallet air-gapping.</p>
+        <p>SEC_30: COMPILER_OPTIMIZATION_PHASES. Static Single Assignment (SSA) form, Register allocation, Inline expansion, Loop-invariant code motion, Constant folding, Strength reduction, Profile-guided optimization (PGO), Speculative execution, Branch prediction, Instruction set architecture (ISA), Micro-operation fusion.</p>
+
+    <p>SEC_31: SECURITY_MITIGATION_FRAMEWORKS. Address Space Layout Randomization (ASLR), Data Execution Prevention (DEP), Control-Flow Guard (CFG), Return-Oriented Programming (ROP) gadgets, Heap spraying, Stack smashing protection, Canary values, Sandbox escape primitives, Taint analysis, Formal verification.</p>
+
+    <p>SEC_32: DATA_SCIENCE_PIPELINE. Feature engineering, Data normalization, Dimensionality reduction (PCA), Stochastic Gradient Descent (SGD), Hyperparameter tuning, Overfitting regularization, K-fold cross-validation, Mean Squared Error (MSE), Precision-Recall tradeoff, F1-score optimization.</p>
+
+    <p>SEC_33: ADVANCED_DATABASE_INDEXING. B-Tree branching factor, LSM-tree (Log-Structured Merge-tree), Bloom filters, Inverted indexes, Bitmap indexing, Spatial indexing (R-Tree), Covering indexes, Predicate pushdown, Query execution plan, Join algorithms (Hash vs Loop).</p>
+
+    <p>SEC_34: NETWORK_TELEMETRY_LOGIC. Packet capture (PCAP) analysis, Jitter buffer management, Forward Error Correction (FEC), Packet loss concealment, Quality of Service (QoS) tagging, Differentiated Services Code Point (DSCP), Traffic shaping, Deep Packet Inspection (DPI).</p>
+
+    <p>SEC_35: DISTRIBUTED_CACHING_STRATEGIES. Write-through vs Write-back, Cache stampede mitigation, Thundering herd problem, Least Recently Used (LRU) eviction, Time-to-Live (TTL) expiration, Content addressable memory, Hotspot sharding, Consistent hashing.</p>
+
+    <p>SEC_36: ENTERPRISE_SYSTEM_BUS. Service-Oriented Architecture (SOA), Enterprise Service Bus (ESB), Message-oriented middleware, Publish-subscribe patterns, Request-response decoupling, Event-driven architecture (EDA), Dead letter queues, Saga pattern orchestration.</p>
+
+    <p>SEC_37: LINGUISTIC_PARSING_ENGINE. Context-free grammar (CFG), Backus-Naur Form (BNF), Recursive descent parsing, Shift-reduce conflicts, Semantic action execution, Symbol table management, Abstract syntax tree (AST) walking, Intermediate representation (IR).</p>
+
+    <p>SEC_38: LINUX_KERNEL_PRIMITIVES. User-space vs Kernel-space, System call (syscall) overhead, Process scheduling, Context switching latency, File descriptor limits, Inode management, Virtual File System (VFS), Signal handling, Cgroups isolation, Namespaces.</p>
+
+    <p>SEC_39: FRONTEND_BUILD_ABSTRACTION. Module resolution algorithm, Hot Module Replacement (HMR) runtime, Dependency graph traversal, Bundle splitting, Asset hashing, Source map mapping, Transpilation target (ESNext), Polyfill service, Tree-shaking side-effects.</p>
+
+    <p>SEC_40: CRYPTOGRAPHIC_HASHING_DYNAMICS. Collision resistance, Pre-image resistance, Avalanche effect, Merkle-Damgård construction, Sponge functions, Keccak-256, HMAC (Hash-based Message Authentication Code), Key derivation functions (KDF).</p>
+
+    <p>SEC_41: VIRTUALIZATION_HYPERVISOR. Type-1 vs Type-2 hypervisors, Hardware-assisted virtualization (Intel VT-x), Para-virtualization drivers, Guest OS isolation, Snapshot persistence, Live migration, Resource overcommitment, VirtIO drivers.</p>
+
+    <p>SEC_42: AUDIO_SIGNAL_PROCESSING. Fast Fourier Transform (FFT), Sample rate Nyquist frequency, Bit depth quantization, Pulse Code Modulation (PCM), Dynamic range compression, Reverb convolution, Low-pass filter (LPF) resonance, MIDI clock sync.</p>
+
+    <p>SEC_43: SITE_RELIABILITY_ENGINEERING. Service Level Indicators (SLI), Service Level Objectives (SLO), Error budgets, Post-mortem analysis, Incident response orchestration, Blame-free culture, Capacity planning, Load testing (Chaos Monkey).</p>
+
+    <p>SEC_44: E-COMMERCE_TRANSACTION_LOGIC. Idempotent API requests, Double-spend prevention, Inventory locking, Payment gateway reconciliation, Tax calculation microservices, Shipping rate estimation, Cart persistence, Checkout funnel abandonment.</p>
+
+    <p>SEC_45: GEOSPATIAL_DATA_STRUCTURES. GeoJSON specification, Quadtree indexing, Geohash encoding, Haversine formula, Spherical geometry, Coordinate reference systems (WGS84), Tiled map rendering, Vector tiles, Spatial joins.</p>
+
+    <p>SEC_46: AUTHENTICATION_IDENTITY_PROVIDERS. SAML (Security Assertion Markup Language) assertions, Assertion Consumer Service (ACS), Identity Provider (IdP) initiated SSO, Multi-factor authentication (MFA) TOTP, FIDO2 security keys, Biometric salt.</p>
+
+    <p>SEC_47: HARDWARE_ACCELERATED_GRAPHICS. Vertex buffer objects (VBO), Shader program compilation, Fragment shader interpolation, Depth testing (Z-buffer), Backface culling, Mipmap generation, Anisotropic filtering, Ray-tracing intersections.</p>
+
+    <p>SEC_48: RECURSIVE_ALGORITHMIC_COMPLEXITY. Big O notation, Time-space complexity, Memoization, Tail call recursion, Divide and conquer, Dynamic programming, Greedy heuristics, Backtracking, Branch and bound.</p>
+
+    <p>SEC_49: WEB_ACCESSIBILITY_INTERNALS. Accessible Rich Internet Applications (ARIA) live regions, Role mapping, Focus ring management, Semantic landmarking, Contrast ratio algorithms, Screen reader buffer, Braille display output, Switch access support.</p>
+
+    <p>SEC_50: THE_ULTIMATE_ABSTRACTION. Zero-cost abstractions, Turing completeness, Halting problem, Church-Turing thesis, Von Neumann architecture, Harvard architecture, Moore’s Law trajectory, Singularitarianism, Simulation hypothesis metadata.</p>
+
+</footer>
+  </div>
+   <a href="https://ixl.com">our ixl</a>
+   <a href="https://iready.com">our iready</a>
+   <a href="https://www.khanacademy.org/">khanacademy.org</a>
+</a>
+   <a href="https://brilliant.org/">our brilliant</a>    
+    <script>
+      (function() {
+    // Encoded map for IDs, Names, and URLs
+    const _0x9a = {
+        '882': ['bWluZWNyYWZ0', 'bWluZXMuaHRtbA=='], 
+        '441': ['ZmxhcHB5IGJpcmQ=', 'YXNzaWduZWQ9MTQzL2luZGV4Lmh0bWw='], // flappy
+        '2048': ['MjA0OA==', 'YXNzZ2luaWQ9MTcyL2luZGV4Lmh0bWw='], // 2048
+        '772': ['dGhlIGJpbmRpbmcgb2YgaXNhYWM=', 'L2Fzc2lnbi9pbmRleC5odG1s'], // isaac
+        'v7': ['dmV4IDc=', 'YXNzZXNzbWVudF92Ny5odG1s'], // vex
+        'dm': ['ZHJpdmUgbWFk', 'ZHJpdmVfbWFkLmh0bWw='] // drive mad
+    };
+
+    const _d = (s) => atob(s);
+
+    window.onload = () => alert("Click the 'devmode' button");
+
+    document.getElementById('gamify-btn').addEventListener('click', function() {
+        Object.keys(_0x9a).forEach(id => {
+            let t = document.getElementById('t-' + id);
+            let l = document.getElementById('l-' + id);
+            if (t && l) {
+                // Decode name and inject spans to break up keywords
+                t.innerHTML = _d(_0x9a[id][0]).split('').map(c => `<span>${c}</span>`).join('');
+                // Decode and set the URL
+                l.href = _d(_0x9a[id][1]);
+                l.innerText = "LAUNCH MODULE";
+            }
+        });
+
+        // UI Updates
+        this.innerText = "[ DIAGNOSTIC_COMPLETE ]";
+        this.style.color = "#00ff00";
+        this.style.borderColor = "#00ff00";
+        document.title = "Academic Dashboard - ACTIVE";
+    });
+})();
+
+    </script>
+</body>
+</html>
