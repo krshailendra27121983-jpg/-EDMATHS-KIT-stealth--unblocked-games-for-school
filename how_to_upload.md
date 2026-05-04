@@ -59,4 +59,4 @@ There is a clear difference between a teacher who uses spyware and ones who don'
 Note that we will never stop fighting. As soon as you add a brand-new "groundbreaking" update, we will come together just as quickly to circumvent it. **EXPECT US** to fight it. We will never stop.
 
 ---
-*Created by [Your Name/Team Name]*
+*Created by D3LTA :)*
