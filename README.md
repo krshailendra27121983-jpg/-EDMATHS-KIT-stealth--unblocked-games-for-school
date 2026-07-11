@@ -1,8 +1,8 @@
-<span style="font-size: 200px; font-weight: bold;">Deprecation notice</span>
-<span style="font-size: 75px; font-weight: bold;">v2 is faster, includes new games, is stealthier, and fixes bugs</span>
+# Deprecation notice
+# "v2 is faster, includes new levels, and fixes bugs
 
 
-# EDMATHS-KIT (Stealth)
+## EDMATHS-KIT (Stealth)
 ### Unblocked Games for School
 
 An unblocked game repository built to be undetectable. It uses multiple layers of stealth to bypass filters like **GoGuardian**, **Linewize**, and **Lightspeed**.
