@@ -1,4 +1,4 @@
-<span style="font-size: 100px; font-weight: bold;">Deprecation notice</span>
+<span style="font-size: 200px; font-weight: bold;">Deprecation notice</span>
 <span style="font-size: 75px; font-weight: bold;">v2 is faster, includes new games, is stealthier, and fixes bugs</span>
 
 
