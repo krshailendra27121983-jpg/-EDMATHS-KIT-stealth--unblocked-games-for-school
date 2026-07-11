@@ -1,4 +1,4 @@
-# EDMATHS-KIT v1 is not considered "legacy" feel free to keep on useing it but v2 is faster, includes new levels, and fixes bugs
+# EDMATHS-KIT v1 is not considered "legacy" feel free to keep on useing it but v2 is faster, includes new levels, and fixes bugs 
 
 
 
