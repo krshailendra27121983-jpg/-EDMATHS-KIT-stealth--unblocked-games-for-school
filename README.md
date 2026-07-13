@@ -1,4 +1,4 @@
-# EDMATHS-KIT v1 is considered "legacy". Feel free to keep on useing it v2 is faster, includes new games, more stealth, and fixes bugs 
+# EDMATHS-KIT v1 is considered "legacy". Feel free to keep on useing it v2 is faster, includes new games, more stealth, and fixes bugs to use v2 look at this   # repo: https://github.com/krshailendra27121983-jpg/EDMATHS-KIT_v2_STEALTH_UNBLOCKED_GAMES_FOR_SCHOOL
 
 
 
